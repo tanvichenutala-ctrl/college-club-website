@@ -162,16 +162,17 @@ export default function ClubsManager() {
               </div>
               <p className="mt-2">{c.description}</p>
 
-              {c.googleFormUrl && (
+              {c.googleFormUrl && c.googleFormUrl.startsWith("http") && (
                 <a
-                  href={c.googleFormUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-block mt-3 text-blue-600 hover:underline"
+                href={c.googleFormUrl.trim()}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block mt-3 text-blue-600 hover:underline break-all"
                 >
-                  Fill Registration Form →
-                </a>
-              )}
+              Fill Registration Form →
+            </a>
+          )}
+
             </CardContent>
           </Card>
         ))}
