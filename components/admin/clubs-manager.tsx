@@ -132,32 +132,25 @@ export default function ClubsManager() {
         {isLoading && <div>Loading...</div>}
         {error && <div className="text-destructive">Error loading clubs</div>}
         {clubs.length === 0 && !isLoading && <div className="text-muted-foreground">No clubs yet.</div>}
-        {clubs.map((c: any) => (
-          <Card key={c.id}>
-            <CardHeader className="flex-row items-center justify-between gap-4">
-              <CardTitle className="text-balance min-w-0 pr-4">{c.name}</CardTitle>
-              <Button
-                variant="destructive"
-                size="sm"
-                onClick={() => {
-                  setDeleteId(c.id)
-                  setDeleteClubName(c.name)
-                }}
-                className="gap-2 whitespace-nowrap"
-              >
-                <Trash2 className="w-4 h-4" />
-                Delete
-              </Button>
-            </CardHeader>
-            <CardContent className="text-pretty">
-              <div className="text-sm text-muted-foreground">
-                {c.category || "Uncategorized"}
-                {c.location ? ` • ${c.location}` : ""}
-              </div>
-              <p className="mt-2">{c.description}</p>
-            </CardContent>
-          </Card>
-        ))}
+       <CardContent className="text-pretty">
+  <div className="text-sm text-muted-foreground">
+    {c.category || "Uncategorized"}
+    {c.location ? ` • ${c.location}` : ""}
+  </div>
+  <p className="mt-2">{c.description}</p>
+
+  {/* ✅ Add this section */}
+  {c.googleFormUrl && (
+    <a
+      href={c.googleFormUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="inline-block mt-3 text-blue-600 hover:underline"
+    >
+      Fill Registration Form →
+    </a>
+  )}
+</CardContent>
       </div>
 
       <AlertDialog open={!!deleteId} onOpenChange={(open) => !open && setDeleteId(null)}>
