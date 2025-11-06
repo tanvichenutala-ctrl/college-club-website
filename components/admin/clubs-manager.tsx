@@ -37,6 +37,19 @@ export default function ClubsManager() {
 
   const clubs = Array.isArray(data) ? data : data?.data || []
 
+  const staticClubs = [
+  {
+    id: "static-tech",
+    name: "Tech Club",
+    description: "A club for tech enthusiasts and innovators.",
+    category: "Technology",
+    location: "Main Campus",
+    cover_image_url: "https://example.com/techclub.jpg",
+    about: "We conduct hackathons, coding events, and workshops.",
+    googleFormUrl: "https://forms.gle/example",
+  },
+]
+  const allClubs = [...staticClubs, ...clubs]
   async function createClub() {
     try {
       const res = await fetch("/api/clubs", {
@@ -137,7 +150,7 @@ export default function ClubsManager() {
           <div className="text-muted-foreground">No clubs yet.</div>
         )}
 
-        {clubs.map((c: any) => (
+        {allclubs.map((c: any) => (
           <Card key={c.id}>
             <CardHeader className="flex-row items-center justify-between gap-4">
               <CardTitle className="text-balance min-w-0 pr-4">{c.name}</CardTitle>
