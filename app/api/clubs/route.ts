@@ -59,6 +59,7 @@ export async function POST(req: Request) {
   const name: string = body.name
   if (!name) return NextResponse.json({ error: "Name is required" }, { status: 400 })
 
+
   const payload = {
     name,
     description: body.description ?? null,
