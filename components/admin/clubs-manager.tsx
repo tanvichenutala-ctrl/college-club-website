@@ -19,6 +19,19 @@ import {
 } from "@/components/ui/alert-dialog"
 
 const fetcher = (url: string) => fetch(url).then((r) => r.json())
+// Define this helper function outside the component for clarity and efficiency
+const sanitizeGoogleFormUrl = (url: string) => {
+  if (!url) return "";
+  
+  // 1. Remove leading/trailing whitespace
+  let cleaned = url.trim();
+  
+  // 2. Remove any existing protocol (http:// or https://) case-insensitively
+  cleaned = cleaned.replace(/^(http|https):\/\//i, '');
+  
+  // 3. Force it to use the secure protocol https://
+  return `https://${cleaned}`;
+};
 
 export default function ClubsManager() {
   const { toast } = useToast()
@@ -174,16 +187,18 @@ export default function ClubsManager() {
               </div>
               <p className="mt-2">{c.description}</p>
 
-              {c.googleFormUrl && c.googleFormUrl.startsWith("http") && (
-                <a
-                href={c.googleFormUrl.trim()}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-block mt-3 text-blue-600 hover:underline break-all"
-                >
-              Fill Registration Form →
-            </a>
-          )}
+              // Modified conditional check (simplified and using the new function)
+{c.googleFormUrl && (
+  <a
+    // 💡 MODIFICATION HERE: Use the sanitization function
+    href={sanitizeGoogleFormUrl(c.googleFormUrl)}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="inline-block mt-3 text-blue-600 hover:underline break-all"
+  >
+  Fill Registration Form →
+</a>
+)}
 
             </CardContent>
           </Card>
