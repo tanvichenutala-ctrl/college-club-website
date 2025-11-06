@@ -150,7 +150,7 @@ export default function ClubsManager() {
           <div className="text-muted-foreground">No clubs yet.</div>
         )}
 
-        {allclubs.map((c: any) => (
+        {allClubs.map((c: any) => (
           <Card key={c.id}>
             <CardHeader className="flex-row items-center justify-between gap-4">
               <CardTitle className="text-balance min-w-0 pr-4">{c.name}</CardTitle>
