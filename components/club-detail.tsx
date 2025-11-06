@@ -16,6 +16,7 @@ interface Club {
   location: string
   cover_image_url?: string
   about?: string
+  googleFormUrl?: string
 }
 
 interface Announcement {
@@ -61,6 +62,8 @@ export function ClubDetail({ clubId }: { clubId: string }) {
     )
   }
 
+  const joinUrl = club.googleFormUrl || GOOGLE_FORM_URL
+
   return (
     <div className="space-y-8">
       {/* About Section */}
@@ -88,7 +91,7 @@ export function ClubDetail({ clubId }: { clubId: string }) {
             </div>
           )}
           <Button asChild className="w-full md:w-auto">
-            <a href={GOOGLE_FORM_URL} target="_blank" rel="noopener noreferrer">
+            <a href={joinUrl} target="_blank" rel="noopener noreferrer">
               Join Club
             </a>
           </Button>
