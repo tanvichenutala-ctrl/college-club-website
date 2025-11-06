@@ -13,21 +13,6 @@ const GOOGLE_FORM_URL = process.env.NEXT_PUBLIC_JOIN_FORM_URL || "https://forms.
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json())
 
-// 🛠️ ADDED: Function to sanitize and enforce HTTPS protocol
-const sanitizeGoogleFormUrl = (url: string | undefined) => {
-  if (!url) return "";
-  
-  // 1. Remove leading/trailing whitespace
-  let cleaned = url.trim();
-  
-  // 2. Remove any existing protocol (http:// or https://) case-insensitively
-  cleaned = cleaned.replace(/^(http|https):\/\//i, '');
-  
-  // 3. Force it to use the secure protocol https://
-  return `https://${cleaned}`;
-};
-// --------------------------------------------------------------------------
-
 export function ClubsSection() {
   const [selectedCategory, setSelectedCategory] = useState("All")
 
@@ -86,13 +71,7 @@ export function ClubsSection() {
       {!isLoading && !error && (
         <>
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-            {filteredClubs.map((club: any) => {
-                // 🛠️ MODIFIED: Determine the correct, sanitized link to use
-                const joinLink = club.googleFormUrl 
-                    ? sanitizeGoogleFormUrl(club.googleFormUrl) 
-                    : GOOGLE_FORM_URL;
-
-                return (
+            {filteredClubs.map((club: any) => (
               <Card key={club.id} className="flex flex-col transition-all hover:shadow-sm">
                 <CardHeader>
                   <div className="flex items-start justify-between gap-4">
@@ -107,8 +86,7 @@ export function ClubsSection() {
                     <span>{club.location}</span>
                   </div>
                   <Button asChild className="w-full">
-                        {/* 🛠️ MODIFIED: Use the determined and sanitized joinLink */}
-                    <a href={joinLink} target="_blank" rel="noopener noreferrer">
+                    <a href={GOOGLE_FORM_URL} target="_blank" rel="noopener noreferrer">
                       Join Club
                     </a>
                   </Button>
@@ -117,7 +95,7 @@ export function ClubsSection() {
                   </Button>
                 </CardContent>
               </Card>
-            )})}
+            ))}
           </div>
 
           {filteredClubs.length === 0 && (
