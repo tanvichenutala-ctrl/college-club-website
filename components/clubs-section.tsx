@@ -17,9 +17,23 @@ export function ClubsSection() {
   const [selectedCategory, setSelectedCategory] = useState("All")
 
   const { data: clubs = [], isLoading, error } = useSWR("/api/clubs", fetcher)
+  const staticClubs = [
+  {
+    id: "MVGR Glug",
+    name: "Tech Club",
+    description: "A club for tech enthusiasts and innovators.",
+    category: "Technology",
+    location: "Library",
+    about: "We conduct hackathons, coding events, and workshops to foster innovation.",
+    googleFormUrl: "https://docs.google.com/forms/d/e/1FAIpQLSdF8zx5gkzfKBpw36iNvXVrr1w8CFPUiU7QIPE7ILtTrAKuww/viewform?usp=header", // optional
+  },
+]
+  const allClubs = [...staticClubs, ...(Array.isArray(clubs) ? clubs : clubs?.data || [])]
 
   const filteredClubs =
-    selectedCategory === "All" ? clubs : clubs.filter((club: any) => club.category === selectedCategory)
+  selectedCategory === "All"
+    ? allClubs
+    : allClubs.filter((club: any) => club.category === selectedCategory)
 
   return (
     <section id="clubs" className="scroll-mt-20">
