@@ -39,12 +39,11 @@ export default function ClubsManager() {
 
   const staticClubs = [
   {
-    id: "static-tech",
+    id: "MVGR Glug",
     name: "Tech Club",
     description: "A club for tech enthusiasts and innovators.",
     category: "Technology",
-    location: "Main Campus",
-    cover_image_url: "https://example.com/techclub.jpg",
+    location: "Library",
     about: "We conduct hackathons, coding events, and workshops.",
     googleFormUrl: "https://docs.google.com/forms/d/e/1FAIpQLSdF8zx5gkzfKBpw36iNvXVrr1w8CFPUiU7QIPE7ILtTrAKuww/viewform?usp=header",
   },
