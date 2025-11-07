@@ -17,7 +17,15 @@ type APIAnnouncement = {
   club_name?: string
 }
 
-const fetcher = (url: string) => fetch(url, { cache: "no-store" }).then((r) => r.json())
+const fetcher = (url: string) =>
+  fetch(url, { cache: "no-store" })
+    .then((res) => {
+      if (!res.ok) throw new Error("Failed to fetch")
+      return res.json()
+    })
+    .catch(() => {
+      return []
+    })
 
 export function AnnouncementsSection() {
   const { data, error, isLoading } = useSWR<APIAnnouncement[]>("/api/announcements", fetcher, {
